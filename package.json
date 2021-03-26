@@ -9,13 +9,14 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
+    "styled-components": "^5.2.1",
     "web-vitals": "^1.0.1"
   },
   "lint-staged": {
-       "src/**/*.{js,json}": [
-         "prettier --write"
-       ]
-     },
+    "src/**/*.{js,json}": [
+      "prettier --write"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -23,10 +24,10 @@
     "eject": "react-scripts eject"
   },
   "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
-    },
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
