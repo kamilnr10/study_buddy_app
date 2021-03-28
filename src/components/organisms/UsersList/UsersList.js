@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { users as usersData } from 'data/users';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
-import { StyledList, Wrapper } from './UsersList.styles';
+import { Button } from 'components/atoms/Button/Button';
+import { StyledList, StyledTitle, Wrapper } from './UsersList.styles';
 import FormField from 'components/molecules/FormField/FormField';
 
 const mockAPI = (success) => {
@@ -38,10 +39,14 @@ const UsersList = () => {
   return (
     <>
       <Wrapper>
+        <StyledTitle>Add new student</StyledTitle>
         <FormField label="Name" id="name" name="name" />
+        <FormField label="Attendance" id="name" name="name" />
+        <FormField label="Average" id="name" name="name" />
+        <Button>Add</Button>
       </Wrapper>
       <Wrapper>
-        <h1>{isLoading ? 'Loading...' : 'Users List'}</h1>
+        <StyledTitle>{isLoading ? 'Loading...' : 'Users List'}</StyledTitle>
         <StyledList>
           {users.map((userData) => (
             <UsersListItem key={userData.name} deleteUser={deleteUser} userData={userData} />
