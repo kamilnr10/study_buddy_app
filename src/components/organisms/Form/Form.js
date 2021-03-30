@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from 'components/atoms/Button/Button';
 import { StyledList, StyledTitle, Wrapper } from '../UsersList/UsersList.styles';
 import FormField from 'components/molecules/FormField/FormField';
+import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 
 const Form = ({ handleAddUser, formValues, handleInputChange }) => {
   return (

@@ -7,21 +7,12 @@ import { StyledList, StyledTitle, Wrapper } from './UsersList.styles';
 const UsersList = ({ users, deleteUser, isLoading }) => {
   return (
     <>
-      {/* <Wrapper as="form" onSubmit={handleAddUser}>
-        <StyledTitle>Add new student</StyledTitle>
-        <FormField label="Name" id="Name" name="name" value={formValues.name} onChange={handleInputChange} />
-        <FormField label="Attendance" id="Attendance" name="attendance" value={formValues.attendance} onChange={handleInputChange} />
-        <FormField label="Average" id="Average" name="average" value={formValues.average} onChange={handleInputChange} />
-        <Button type="submit">Add</Button>
-      </Wrapper> */}
-      <Wrapper>
-        <StyledTitle>{isLoading ? 'Loading...' : 'Users List'}</StyledTitle>
-        <StyledList>
-          {users.map((userData) => (
-            <UsersListItem key={userData.name} deleteUser={deleteUser} userData={userData} />
-          ))}
-        </StyledList>
-      </Wrapper>
+      <StyledTitle>{isLoading ? 'Loading...' : 'Users List'}</StyledTitle>
+      <StyledList>
+        {users.map((userData) => (
+          <UsersListItem key={userData.name} deleteUser={deleteUser} userData={userData} />
+        ))}
+      </StyledList>
     </>
   );
 };

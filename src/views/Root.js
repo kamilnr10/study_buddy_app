@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import UsersList from 'components/organisms/UsersList/UsersList';
 import Form from 'components/organisms/Form/Form';
+import { Wrapper } from './Root.styles';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
+import AddUser from 'views/AddUser';
+import Dashboard from 'views/Dashboard';
 import { GlobalStyle } from 'assets/styles/GlobalStyle.js';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from 'assets/styles/theme';
 import { users as usersData } from 'data/users';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
-const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.lightGrey};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-`;
 
 const mockAPI = (success) => {
   return new Promise((resolve, reject) => {
@@ -82,11 +76,11 @@ const Root = () => {
         <MainTemplate>
           <Wrapper>
             <Switch>
-              <Route path="/" exact>
-                <UsersList deleteUser={deleteUser} users={users} isLoading={isLoading} />
-              </Route>
               <Route path="/add-user">
-                <Form formValues={formValues} handleAddUser={handleAddUser} handleInputChange={handleInputChange} />
+                <AddUser formValues={formValues} handleAddUser={handleAddUser} handleInputChange={handleInputChange} />
+              </Route>
+              <Route path="/" exact>
+                <Dashboard deleteUser={deleteUser} users={users} isLoading={isLoading} />
               </Route>
             </Switch>
           </Wrapper>
