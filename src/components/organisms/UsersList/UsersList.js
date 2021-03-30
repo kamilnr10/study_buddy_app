@@ -1,50 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { users as usersData } from 'data/users';
+import React from 'react';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
-import { Button } from 'components/atoms/Button/Button';
+// import { Button } from 'components/atoms/Button/Button';
 import { StyledList, StyledTitle, Wrapper } from './UsersList.styles';
-import FormField from 'components/molecules/FormField/FormField';
+// import FormField from 'components/molecules/FormField/FormField';
 
-const mockAPI = (success) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (usersData) {
-        resolve([...usersData]);
-      } else {
-        reject({ message: 'Error' });
-      }
-    }, 2000);
-  });
-};
-
-const UsersList = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoading, setLoadingState] = useState([]);
-
-  useEffect(() => {
-    setLoadingState(true);
-    mockAPI()
-      .then((data) => {
-        setLoadingState(false);
-        setUsers(data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  const deleteUser = (name) => {
-    const filteredUsers = users.filter((user) => user.name !== name);
-    setUsers(filteredUsers);
-  };
-
+const UsersList = ({ users, deleteUser, isLoading }) => {
   return (
     <>
-      <Wrapper>
+      {/* <Wrapper as="form" onSubmit={handleAddUser}>
         <StyledTitle>Add new student</StyledTitle>
-        <FormField label="Name" id="name" name="name" />
-        <FormField label="Attendance" id="name" name="name" />
-        <FormField label="Average" id="name" name="name" />
-        <Button>Add</Button>
-      </Wrapper>
+        <FormField label="Name" id="Name" name="name" value={formValues.name} onChange={handleInputChange} />
+        <FormField label="Attendance" id="Attendance" name="attendance" value={formValues.attendance} onChange={handleInputChange} />
+        <FormField label="Average" id="Average" name="average" value={formValues.average} onChange={handleInputChange} />
+        <Button type="submit">Add</Button>
+      </Wrapper> */}
       <Wrapper>
         <StyledTitle>{isLoading ? 'Loading...' : 'Users List'}</StyledTitle>
         <StyledList>
