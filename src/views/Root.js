@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import UsersList from 'components/organisms/UsersList/UsersList';
 import Form from 'components/organisms/Form/Form';
+import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import { GlobalStyle } from 'assets/styles/GlobalStyle.js';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from 'assets/styles/theme';
@@ -78,20 +79,18 @@ const Root = () => {
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Wrapper>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/add-user">Add user</Link>
-          </nav>
-          <Switch>
-            <Route path="/" exact>
-              <UsersList deleteUser={deleteUser} users={users} isLoading={isLoading} />
-            </Route>
-            <Route path="/add-user">
-              <Form formValues={formValues} handleAddUser={handleAddUser} handleInputChange={handleInputChange} />
-            </Route>
-          </Switch>
-        </Wrapper>
+        <MainTemplate>
+          <Wrapper>
+            <Switch>
+              <Route path="/" exact>
+                <UsersList deleteUser={deleteUser} users={users} isLoading={isLoading} />
+              </Route>
+              <Route path="/add-user">
+                <Form formValues={formValues} handleAddUser={handleAddUser} handleInputChange={handleInputChange} />
+              </Route>
+            </Switch>
+          </Wrapper>
+        </MainTemplate>
       </ThemeProvider>
     </Router>
   );
