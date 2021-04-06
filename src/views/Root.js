@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import UsersList from 'components/organisms/UsersList/UsersList';
-import Form from 'components/organisms/Form/Form';
+// import UsersList from 'components/organisms/UsersList/UsersList';
+// import Form from 'components/organisms/Form/Form';
 import { Wrapper } from './Root.styles';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import AddUser from 'views/AddUser';
 import Dashboard from 'views/Dashboard';
 import { GlobalStyle } from 'assets/styles/GlobalStyle.js';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { theme } from 'assets/styles/theme';
 import { users as usersData } from 'data/users';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const mockAPI = (success) => {
   return new Promise((resolve, reject) => {
@@ -23,16 +23,15 @@ const mockAPI = (success) => {
   });
 };
 
-const initialFormState = {
-  name: '',
-  attendance: '',
-  average: '',
-};
+export const UsersContext = React.createContext({
+  users: [],
+  handleAddUser: () => {},
+  deleteUser: () => {},
+});
 
 const Root = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoadingState] = useState([]);
-  const [formValues, setFormValues] = useState(initialFormState);
 
   useEffect(() => {
     setLoadingState(true);
@@ -49,16 +48,7 @@ const Root = () => {
     setUsers(filteredUsers);
   };
 
-  const handleInputChange = (e) => {
-    console.log(formValues);
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleAddUser = (e) => {
-    e.preventDefault();
+  const handleAddUser = (formValues) => {
     const newUser = {
       name: formValues.name,
       attendance: formValues.attendance,
@@ -66,7 +56,6 @@ const Root = () => {
     };
 
     setUsers([newUser, ...users]);
-    setFormValues(initialFormState);
   };
 
   return (
@@ -74,16 +63,24 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MainTemplate>
-          <Wrapper>
-            <Switch>
-              <Route path="/add-user">
-                <AddUser formValues={formValues} handleAddUser={handleAddUser} handleInputChange={handleInputChange} />
-              </Route>
-              <Route path="/" exact>
-                <Dashboard deleteUser={deleteUser} users={users} isLoading={isLoading} />
-              </Route>
-            </Switch>
-          </Wrapper>
+          <UsersContext.Provider
+            value={{
+              users,
+              handleAddUser,
+              deleteUser,
+            }}
+          >
+            <Wrapper>
+              <Switch>
+                <Route path="/add-user">
+                  <AddUser />
+                </Route>
+                <Route path="/" exact>
+                  <Dashboard deleteUser={deleteUser} users={users} isLoading={isLoading} />
+                </Route>
+              </Switch>
+            </Wrapper>
+          </UsersContext.Provider>
         </MainTemplate>
       </ThemeProvider>
     </Router>
