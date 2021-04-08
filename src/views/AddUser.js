@@ -31,17 +31,13 @@ const AddUser = () => {
   };
 
   return (
-    <UsersContext.Consumer>
-      {({ handleAddUser }) => (
-        <ViewWrapper as="form" onSubmit={handleSubmitUser}>
-          <Title>Add new student</Title>
-          <FormField label="Name" id="Name" name="name" value={formValues.name} onChange={handleInputChange} />
-          <FormField label="Attendance" id="Attendance" name="attendance" value={formValues.attendance} onChange={handleInputChange} />
-          <FormField label="Average" id="Average" name="average" value={formValues.average} onChange={handleInputChange} />
-          <Button type="submit">Add</Button>
-        </ViewWrapper>
-      )}
-    </UsersContext.Consumer>
+    <ViewWrapper as="form" onSubmit={handleSubmitUser}>
+      <Title>Add new student</Title>
+      <FormField label="Name" id="Name" name="name" value={formValues.name} onChange={handleInputChange} />
+      <FormField label="Attendance" id="Attendance" name="attendance" value={formValues.attendance} onChange={handleInputChange} />
+      <FormField label="Average" id="Average" name="average" value={formValues.average} onChange={handleInputChange} />
+      <Button type="submit">Add</Button>
+    </ViewWrapper>
   );
 };
 

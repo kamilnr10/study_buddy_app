@@ -31,7 +31,7 @@ export const UsersContext = React.createContext({
 
 const Root = () => {
   const [users, setUsers] = useState([]);
-  const [isLoading, setLoadingState] = useState([]);
+  const [isLoading, setLoadingState] = useState(false);
 
   useEffect(() => {
     setLoadingState(true);
@@ -76,7 +76,7 @@ const Root = () => {
                   <AddUser />
                 </Route>
                 <Route path="/" exact>
-                  <Dashboard deleteUser={deleteUser} users={users} isLoading={isLoading} />
+                  <Dashboard />
                 </Route>
               </Switch>
             </Wrapper>
