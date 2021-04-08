@@ -5,7 +5,7 @@ import { Button } from 'components/atoms/Button/Button';
 import { Title } from 'components/atoms//Title/Title';
 import FormField from 'components/molecules/FormField/FormField';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
-import { UsersContext } from 'views/Root';
+import { UsersContext } from 'providers/UsersProvider';
 
 const initialFormState = {
   name: '',
