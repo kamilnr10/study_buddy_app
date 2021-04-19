@@ -52,7 +52,7 @@ const NewsSection = () => {
                 category
                 content
                 image {
-                  id
+                  url
                 }
               }
               }`,
