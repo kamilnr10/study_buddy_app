@@ -3,43 +3,14 @@ import { Wrapper, NewsSectionHeader, ArticleWrapper, TitleWrapper, ContentWrappe
 import { Button } from 'components/atoms/Button/Button';
 import axios from 'axios';
 
-const API_TOKEN = '7cd8cf80a54919f0e2dbf2480379b0';
-
-// const data = [
-//   {
-//     title: 'New computers at school',
-//     category: 'Tech news',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus provident quos perspiciatis aperiam odit tempora illo, adipisci, maxime exercitationem architecto, iusto expedita animi. Eligendi, perspiciatis! Unde tempore saepe placeat veritatis.',
-//     image: 'https://unsplash.it/500/400',
-//   },
-//   {
-//     title: '2New computers at school',
-//     category: 'Tech news',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus provident quos perspiciatis aperiam odit tempora illo, adipisci, maxime exercitationem architecto, iusto expedita animi. Eligendi, perspiciatis! Unde tempore saepe placeat veritatis.',
-//     image: 'https://unsplash.it/500/400',
-//   },
-//   {
-//     title: '3New computers at school',
-//     category: 'Tech news',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus provident quos perspiciatis aperiam odit tempora illo, adipisci, maxime exercitationem architecto, iusto expedita animi. Eligendi, perspiciatis! Unde tempore saepe placeat veritatis.',
-//     image: 'https://unsplash.it/500/400',
-//   },
-//   {
-//     title: '3New computers at school',
-//     category: 'Tech news',
-//     content:
-//       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus provident quos perspiciatis aperiam odit tempora illo, adipisci, maxime exercitationem architecto, iusto expedita animi. Eligendi, perspiciatis! Unde tempore saepe placeat veritatis.',
-//     image: 'https://unsplash.it/500/400',
-//   },
-// ];
+const API_KEY = process.env.REACT_APP_DATOCMS_TOKEN;
 
 const NewsSection = () => {
   const [articles, setArticles] = useState([]);
+  const [error, setError] = useState([]);
 
   useEffect(() => {
+    console.log(API_KEY);
     axios
       .post(
         'https://graphql.datocms.com/',
@@ -59,7 +30,7 @@ const NewsSection = () => {
         },
         {
           headers: {
-            authorization: `Bearer ${API_TOKEN}`,
+            authorization: `Bearer ${API_KEY}`,
           },
         }
       )
@@ -67,25 +38,31 @@ const NewsSection = () => {
         console.log(data);
         setArticles(data.allArticles);
       })
-      .catch((err) => console.log(err));
+      .catch(() => setError("Sorry we couldn't load articles for you"));
   }, []);
 
   return (
     <Wrapper>
       <NewsSectionHeader>News feed section</NewsSectionHeader>
-      {articles.map(({ title, category, content, image = null }) => (
-        <ArticleWrapper key={title}>
-          <TitleWrapper>
-            <h3>{title}</h3>
-            <p>{category}</p>
-          </TitleWrapper>
-          <ContentWrapper>
-            <p>{content}</p>
-            {image ? <img src={image.url} alt="article" /> : null}
-          </ContentWrapper>
-          <Button>Read me</Button>
-        </ArticleWrapper>
-      ))}
+
+      {articles.length > 0 ? (
+        articles.map(({ title, category, content, image = null }) => (
+          <ArticleWrapper key={title}>
+            <TitleWrapper>
+              <h3>{title}</h3>
+              <p>{category}</p>
+            </TitleWrapper>
+            <ContentWrapper>
+              <p>{content}</p>
+              {image ? <img src={image.url} alt="article" /> : null}
+            </ContentWrapper>
+            <Button>Read me</Button>
+          </ArticleWrapper>
+        ))
+      ) : (
+        <NewsSectionHeader>{error ? error : 'Loading...'}</NewsSectionHeader>
+      )}
+      {error ? <NewsSectionHeader>{error}</NewsSectionHeader> : null}
     </Wrapper>
   );
 };
