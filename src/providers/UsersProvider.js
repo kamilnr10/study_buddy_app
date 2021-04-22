@@ -1,17 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { users as usersData } from 'data/users';
 
-const mockAPI = (success) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (usersData) {
-        resolve([...usersData]);
-      } else {
-        reject({ message: 'Error' });
-      }
-    }, 2000);
-  });
-};
+// const mockAPI = (success) => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       if (usersData) {
+//         resolve([...usersData]);
+//       } else {
+//         reject({ message: 'Error' });
+//       }
+//     }, 2000);
+//   });
+// };
 
 export const UsersContext = React.createContext({
   users: [],
@@ -21,17 +22,24 @@ export const UsersContext = React.createContext({
 
 export const UsersProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const [isLoading, setLoadingState] = useState(false);
+  // const [isLoading, setLoadingState] = useState(false);
 
   useEffect(() => {
-    setLoadingState(true);
-    mockAPI()
-      .then((data) => {
-        setLoadingState(false);
-        setUsers(data);
-      })
+    axios
+      .get('/students')
+      .then(({ data }) => console.log(data.students))
       .catch((err) => console.log(err));
   }, []);
+
+  // useEffect(() => {
+  //   setLoadingState(true);
+  //   mockAPI()
+  //     .then((data) => {
+  //       setLoadingState(false);
+  //       setUsers(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const deleteUser = (name) => {
     const filteredUsers = users.filter((user) => user.name !== name);

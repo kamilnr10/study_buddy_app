@@ -8,9 +8,9 @@ import Dashboard from 'views/Dashboard';
 import { GlobalStyle } from 'assets/styles/GlobalStyle.js';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'assets/styles/theme';
-import { users as usersData } from 'data/users';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { UsersProvider } from 'providers/UsersProvider';
+// import { users as usersData } from 'data/users';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+// import { UsersProvider } from 'providers/UsersProvider';
 
 const Root = () => {
   return (
@@ -18,26 +18,19 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MainTemplate>
-          {/* <UsersContext.Provider
-            value={{
-              users,
-              handleAddUser,
-              deleteUser,
-            }}
-          > */}
-          <UsersProvider>
-            <Wrapper>
-              <Switch>
-                <Route path="/add-user">
-                  <AddUser />
-                </Route>
-                <Route path="/" exact>
-                  <Dashboard />
-                </Route>
-              </Switch>
-            </Wrapper>
-          </UsersProvider>
-          {/* </UsersContext.Provider> */}
+          <Wrapper>
+            <Switch>
+              <Route exact path="/">
+                <Redirect to="/group" />
+              </Route>
+              <Route path="/add-user">
+                <AddUser />
+              </Route>
+              <Route path="/group/:id?">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </Wrapper>
         </MainTemplate>
       </ThemeProvider>
     </Router>

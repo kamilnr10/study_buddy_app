@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/jest-dom';
+import { screen } from '@testing-library/jest-dom';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import NewsSection from 'components/templates/NewsSection/NewsSection';
-import { renderWithProviders } from 'helpers/renderWithProviders';
+import { renderWithProviders } from 'helpers/renderWithThemeProvider';
 
 const mock = new MockAdapter(axios);
 

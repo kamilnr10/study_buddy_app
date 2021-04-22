@@ -1,13 +1,12 @@
 import React from 'react';
 import UsersListItem from 'components/molecules/UsersListItem/UsersListItem';
-// import { Button } from 'components/atoms/Button/Button';
-import { StyledList, StyledTitle, Wrapper } from './UsersList.styles';
+import { StyledList, StyledTitle } from './UsersList.styles';
 // import FormField from 'components/molecules/FormField/FormField';
 
-const UsersList = ({ users, isLoading }) => {
+const UsersList = ({ users }) => {
   return (
     <>
-      <StyledTitle>{isLoading ? 'Loading...' : 'Users List'}</StyledTitle>
+      <StyledTitle>Students list</StyledTitle>
       <StyledList>
         {users.map((userData) => (
           <UsersListItem key={userData.name} userData={userData} />
