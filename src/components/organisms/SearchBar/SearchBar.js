@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SearchBarWrapper, StatusInfo } from './SearchBar.styles';
+import { SearchBarWrapper, StatusInfo, SearchWrapper, SearchResults } from './SearchBar.styles';
 import { Input } from 'components/atoms/Input/Input';
 import axios from 'axios';
 
@@ -37,14 +37,16 @@ export const SearchBar = () => {
           <strong>Teacher</strong>
         </p>
       </StatusInfo>
-      <Input name="search" id="search" autoComplete="off" value={inputValue} onChange={handleInputChange} />
-      {matchingStudents.length > 0
-        ? matchingStudents.map((matchingStudent) => (
-            <ul key={matchingStudent.id}>
-              <li>{matchingStudent.name}</li>
-            </ul>
-          ))
-        : null}
+      <SearchWrapper>
+        <Input name="search" id="search" autoComplete="off" value={inputValue} onChange={handleInputChange} list="students" />
+        {matchingStudents.length > 0 ? (
+          <SearchResults>
+            {matchingStudents.map((matchingStudent) => (
+              <li key={matchingStudent.id}>{matchingStudent.name}</li>
+            ))}
+          </SearchResults>
+        ) : null}
+      </SearchWrapper>
     </SearchBarWrapper>
   );
 };
