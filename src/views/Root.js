@@ -5,6 +5,7 @@ import { Wrapper } from './Root.styles';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import AddUser from 'views/AddUser';
 import Dashboard from 'views/Dashboard';
+import { Title } from 'components/atoms/Title/Title';
 import { GlobalStyle } from 'assets/styles/GlobalStyle.js';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'assets/styles/theme';
